@@ -295,9 +295,9 @@ static void transport_rtp_cb(void *user_data, void *pkt, pj_ssize_t size)
 
     /* Call stream's callback */
 //    qDebug() << "Call stream's callback";
-    if (rtphdr->pt != 123)
+    if ((rtphdr->pt != 123) & (size > 64))
     {
-//        qDebug() << "Call stream's RTP pkt size" << size;
+        // qDebug() << "Call stream's RTP pkt size" << size << rtphdr->pt;
         adapter->stream_rtp_cb(adapter->stream_user_data, pkt, size);
         adapter->r2sPacket = QDateTime::currentMSecsSinceEpoch();
         RoIP_ED137::instance()->setIncomingRTP(adapter);
@@ -309,8 +309,9 @@ static void transport_rtp_cb(void *user_data, void *pkt, pj_ssize_t size)
     {
 //        qDebug() << "Call stream's 123";
         adapter->r2sPacket = QDateTime::currentMSecsSinceEpoch();
-        if (adapter->rtpAudio == true)
+        if (adapter->rtpAudio == true){
             RoIP_ED137::instance()->setIncomingED137Value(ntohl(adapter->ed137_value),adapter->callID);
+        }
         adapter->rtpAudio = false;
     }
 }

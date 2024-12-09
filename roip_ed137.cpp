@@ -8,7 +8,7 @@ RoIP_ED137 *RoIP_ED137::theInstance_;
 #define IMAG 1
 #define PJ_AUTOCONF  1
 
-#define SWVERSION "6.4 06122023"
+#define SWVERSION "7.6 09122024"
 #define HWVERSION "1.0 12082022"
 
 static void on_reg_state(pjsua_acc_id acc_id);
@@ -5655,19 +5655,19 @@ void RoIP_ED137::checkEvents()
                 }
 
                 trx1->radio1->rssi=(int)get_IPRadioBss(trx1->radio1->call_id);
-                if (sqlon != trx1->radio1->lastRx) {
-                    if (sqlon == 0){
-                        trx1->radio1->lastRxmsec++;
-                        if (trx1->radio1->lastRxmsec < 1)
-                        {
-                            sqlon = 1;
-                        }
-                    }
-                }
-                else
-                {
-                    trx1->radio1->lastRxmsec = 0;
-                }
+                // if (sqlon != trx1->radio1->lastRx) {
+                //     if (sqlon == 0){
+                //         trx1->radio1->lastRxmsec++;
+                //         if (trx1->radio1->lastRxmsec < 1)
+                //         {
+                //             sqlon = 1;
+                //         }
+                //     }
+                // }
+                // else
+                // {
+                //     trx1->radio1->lastRxmsec = 0;
+                // }
 
             }
 
@@ -5764,18 +5764,18 @@ void RoIP_ED137::checkEvents()
                 }
 
                 trx1->radio2->rssi=(int)get_IPRadioBss(trx1->radio2->call_id);
-                if (sqlon != trx1->radio2->lastRx) {
-                    if (sqlon == 0){
-                        trx1->radio2->lastRxmsec++;
-                        if (trx1->radio2->lastRxmsec < 1){
-                            sqlon = 1;
-                        }
-                    }
-                }
-                else
-                {
-                    trx1->radio2->lastRxmsec = 0;
-                }
+                // if (sqlon != trx1->radio2->lastRx) {
+                //     if (sqlon == 0){
+                //         trx1->radio2->lastRxmsec++;
+                //         if (trx1->radio2->lastRxmsec < 1){
+                //             sqlon = 1;
+                //         }
+                //     }
+                // }
+                // else
+                // {
+                //     trx1->radio2->lastRxmsec = 0;
+                // }
 
             }
 
@@ -6537,6 +6537,7 @@ void RoIP_ED137::setOutgoingRTP(tp_adapter* adapter)
 void RoIP_ED137::setIncomingED137Value(uint32_t ed137_value,pjsua_acc_id acc_id)
 {
     checkEvents();
+    qDebug() << "on Rtp Audio Changed callID" << acc_id << ed137_value;
 }
 void RoIP_ED137::setIncomingRTP(tp_adapter* adapter)
 {
